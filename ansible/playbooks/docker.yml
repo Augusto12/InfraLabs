@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: install docker engine in all nodes
+      command: /usr/bin/apt update
