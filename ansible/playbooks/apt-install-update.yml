@@ -1,0 +1,21 @@
+---
+- hosts: all
+  remote_user: vagrant
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Update system
+      apt:
+        update_cache: yes
+
+    - name: Install Docker Engine
+      apt:
+        pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: Add Docker’s official GPG key
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
