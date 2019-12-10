@@ -3,6 +3,12 @@
 
 Vagrant.configure("2") do |config|
 
+  config.vm.define "master" do |master|
+    master.vm.box = "ubuntu/xenial64"
+    master.vm.network "private_network", ip: "192.168.33.9"
+    master.vm.provision "shell", inline: "echo 'I am master'"
+  end
+
   config.vm.define "node1" do |node1|
 	node1.vm.box = "ubuntu/xenial64"
 	node1.vm.network "private_network", ip: "192.168.33.10"
@@ -13,8 +19,9 @@ Vagrant.configure("2") do |config|
 	node2.vm.network "private_network", ip: "192.168.33.11"
   end 
 
+  #config.vm.provision "shell", inline: "sudo apt update"
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "ansible/playbooks/docker.yml"
+    ansible.playbook = "ansible/playbooks/apt-install-update.yml"
   end
 
 end
